@@ -1,0 +1,33 @@
+
+.main {
+    height: auto;
+    padding-top: 30px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.head {
+    height: 46px;
+    left: 10px;
+    font-size: 35px;
+    border-bottom-color: #dadfe5;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.search {
+    margin-top: 30px;
+    /*height: auto;*/
+}
+
+.task-monitor {
+    padding-top: 45px;
+}
+
+.single-task {
+    padding-right: 40px;
+}
+
+.red{
+    color: red;
+}

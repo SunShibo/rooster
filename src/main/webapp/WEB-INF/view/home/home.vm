@@ -1,0 +1,15 @@
+<div class="main">
+    <div class="head">
+        Welcome to Rooster!
+    </div>
+    <div class="task-monitor">
+        <span class="single-task"> All Task : <span id="all-task-span">0</span></span>
+        <span class="single-task"> Wait : <span id="wait-span">0</span></span>
+        <span class="single-task"> Failed Wait : <span id="failed-span" class="">0</span></span>
+    </div>
+    <div class="search">
+        <input type="text" id="search-input"/>
+        <button value="" id="search-btn">search</button>
+    </div>
+
+</div>

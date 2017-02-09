@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html class="app">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Rooster</title>
+    <meta name="description" content="cSphere docker管理系统"/>
+    <meta name="keywords" content="cSphere,docker"/>
+
+    <link href="/static/css/main.css" rel="stylesheet"/>
+
+
+
+</head>
+<body style="" class="">
+
+    $screen_placeholder
+<script type="text/javascript" src="/static/js/mainJs/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        getData();
+        setInterval("getData()", 5000);
+
+        $("#search-btn").click(search);
+    });
+
+    function getData() {
+        $.ajax({
+            type : "post",
+            url : "/console/monitor",
+            data : {} ,
+            dataType : "json",
+            success:function(data){
+                if (data.success == true) {
+                    $("#all-task-span").html(data.data.allTask);
+                    $("#wait-span").html(data.data.waitTask);
+                    $("#failed-span").html(data.data.failedTask);
+                }
+            }
+        });
+    }
+
+    function search (){
+        var uniquelyID = $("#search-input").val();
+        $.ajax({
+            type : "post",
+            url : "/console/find",
+            data : {"uniquelyID" : uniquelyID} ,
+            dataType : "json",
+            success:function(data){
+                if (data.success == true) {
+                    alert(true);
+                }
+            }
+        });
+    }
+
+
+</script>
+</body>
+</html>
+
+##<script type="text/javascript">
+##    $(function(){
+##        alert(1);
+##    });
+##</script>

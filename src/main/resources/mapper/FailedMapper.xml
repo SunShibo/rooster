@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.sun.rooster.dao.FailedDao">
+
+    <insert id="insertItem" parameterType="com.sun.rooster.entity.FailedDO" useGeneratedKeys="true"
+            keyProperty="id">
+		<![CDATA[
+           INSERT INTO rst_failed ( uniquelyID , createTime , failedInfo)
+           VALUES( #{uniquelyID} , #{createTime} , #{failedInfo})
+        ]]>
+	</insert>
+
+	<select id="selectFailedListByUniquelyID" resultType="com.sun.rooster.entity.FailedDO" parameterType="String">
+		SELECT id , createTime , uniquelyID
+		FROM rst_failed
+		WHERE uniquelyID = #{uniquelyID}
+	</select>
+
+</mapper>

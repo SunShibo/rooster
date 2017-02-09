@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.sun.rooster.dao.TaskDao">
+
+    <insert id="insertTask" parameterType="com.sun.rooster.entity.param.AddMessageParam" useGeneratedKeys="true"
+            keyProperty="id">
+		<![CDATA[
+           INSERT INTO rst_task ( uniquelyID , triggerMode , triggerTime , callbackURL , callbackMethod , callbackData , status)
+           VALUES( #{uniquelyID} , #{triggerMode} , #{triggerTime} , #{callbackURL} , #{callbackMethod} , #{callbackData} , "wait")
+        ]]>
+	</insert>
+
+	<select id="selectTask" resultType="com.sun.rooster.entity.TaskDO" parameterType="String">
+		SELECT *
+		FROM rst_task
+		WHERE uniquelyID = #{uniquelyID}
+	</select>
+
+	<update id="cancel" parameterType="String">
+		UPDATE
+		rst_task
+		SET
+		status = "cancel"
+		WHERE
+		uniquelyID = #{uniquelyID}
+	</update>
+
+	<update id="complete" parameterType="String">
+		UPDATE
+		rst_task
+		SET
+		status = "complete"
+		WHERE
+		uniquelyID = #{uniquelyID}
+	</update>
+
+	<update id="failedWait" parameterType="String">
+		UPDATE
+		rst_task
+		SET
+		status = "failed_wait"
+		WHERE
+		uniquelyID = #{uniquelyID}
+	</update>
+
+	<select id="selectNoCompleteTask" resultType="com.sun.rooster.entity.bo.TaskBO" >
+		SELECT
+            rt.*,
+            count(rf.uniquelyID) failedTimes
+        FROM
+            rst_task rt
+        LEFT JOIN rst_failed rf ON rt.uniquelyID = rf.uniquelyID
+        where rt.status != "complete" and rt.status != "cancel"
+        GROUP BY
+            rt.uniquelyID
+	</select>
+
+	<select id="selectTaskNumByStatus" resultType="int" parameterType="String">
+		SELECT
+			count(id)
+		FROM
+			rst_task
+		WHERE
+			1 = 1
+			<if test="status != null and status !='' " >
+				and `status` = #{status}
+			</if>
+	</select>
+
+	<select id="selectAllFailedItem" resultType="com.sun.rooster.entity.TaskDO">
+		SELECT *
+		FROM rst_task
+		WHERE `status` = "failed_wait"
+	</select>
+</mapper>
